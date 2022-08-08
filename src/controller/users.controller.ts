@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import User from '../interfaces/user.interface';
+import { User, UserLogin } from '../interfaces/user.interface';
 import UserService from '../services/users.service';
 
 class UserController {
@@ -14,7 +14,7 @@ class UserController {
   };
 
   public login = async (req: Request, res: Response) => {
-    const user: User = req.body;
+    const user: UserLogin = req.body;
     const token = await this.userService.login(user);
 
     return res.status(StatusCodes.OK).json({ token });

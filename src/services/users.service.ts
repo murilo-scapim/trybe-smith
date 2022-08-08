@@ -1,7 +1,7 @@
 import { UnauthorizedError } from 'restify-errors';
 import connection from '../models/connection';
 import UserModel from '../models/user.model';
-import User from '../interfaces/user.interface';
+import { User, UserLogin, UserWithoutPassword } from '../interfaces/user.interface';
 import { createToken } from '../utils/authJwt';
 import userLoginValidation from '../utils/login.validation';
 
@@ -13,13 +13,14 @@ class UserService {
   }
 
   public async create(user: User): Promise<string> {
-    const userCreated: User = await this.model.create(user);
-    return createToken(userCreated);
+    const userCreated: UserWithoutPassword = await this.model.create(user);
+    const token = createToken(userCreated);
+    return token;
   }
 
-  public async login(user: User): Promise<string> {
+  public async login(user: UserLogin): Promise<string> {
     userLoginValidation(user);
-    const userFound: User = await this.model.login(user);
+    const userFound: UserWithoutPassword = await this.model.login(user);
     if (!userFound) {
       throw new UnauthorizedError('Username or password invalid');
     }

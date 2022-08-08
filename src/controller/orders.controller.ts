@@ -9,6 +9,10 @@ class OrdersController {
     const orders = await this.ordersService.getAll();
     res.status(StatusCodes.OK).json(orders);
   };
+
+  // public create = async (req: Request, res: Response) => {
+
+  // };
 }
 
 export default OrdersController;
