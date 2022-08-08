@@ -8,7 +8,7 @@ const jwtConfig: SignOptions = {
 };
 
 const createToken = (payload: JwtPayload): string =>
-  jwt.sign(payload, secret, jwtConfig);
+  jwt.sign({ ...payload }, secret, jwtConfig);
 
 export {
   createToken,

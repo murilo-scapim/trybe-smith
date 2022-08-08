@@ -12,6 +12,13 @@ class UserController {
     
     res.status(StatusCodes.CREATED).json({ token });
   };
+
+  public login = async (req: Request, res: Response) => {
+    const user: User = req.body;
+    const token = await this.userService.login(user);
+
+    return res.status(StatusCodes.OK).json({ token });
+  };
 }
 
 export default UserController;
