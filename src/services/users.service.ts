@@ -4,6 +4,7 @@ import UserModel from '../models/user.model';
 import { User, UserLogin, UserWithoutPassword } from '../interfaces/user.interface';
 import { createToken } from '../utils/authJwt';
 import userLoginValidation from '../utils/login.validation';
+import userBodyValidation from '../utils/user.validation';
 
 class UserService {
   public model: UserModel;
@@ -13,6 +14,7 @@ class UserService {
   }
 
   public async create(user: User): Promise<string> {
+    userBodyValidation(user);
     const userCreated: UserWithoutPassword = await this.model.create(user);
     const token = createToken(userCreated);
     return token;
