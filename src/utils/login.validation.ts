@@ -1,9 +1,5 @@
 import Joi from 'joi';
-
-interface UserLogin {
-  username: string;
-  password: string;
-}
+import { UserLogin } from '../interfaces/user.interface';
 
 const userLoginValidation = (userLogin: UserLogin) => {
   const { error } = Joi.object({

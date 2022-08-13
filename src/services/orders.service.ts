@@ -1,6 +1,7 @@
 import connection from '../models/connection';
 import OrderModel from '../models/order.model';
-import { Order, OrderWithProductsIds } from '../interfaces/order.interface';
+import { Order, OrderOnlyProductsIds, OrderWithProductsIds } from '../interfaces/order.interface';
+import orderBodyValidation from '../utils/order.validation';
 
 class OrderService {
   public model: OrderModel;
@@ -23,6 +24,13 @@ class OrderService {
     const orders = await this.model.getAll();
     const ordersWithProductsIds = await this.getOrdersWithProductsIds(orders);
     return ordersWithProductsIds;
+  }
+
+  public async create(userId: number, data: OrderOnlyProductsIds):
+  Promise<OrderWithProductsIds> {
+    orderBodyValidation(data);
+    const result = await this.model.create(userId, data);
+    return result;
   }
 }
 

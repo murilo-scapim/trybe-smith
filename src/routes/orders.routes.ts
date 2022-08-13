@@ -7,6 +7,6 @@ const router: Router = Router();
 const ordersController = new OrdersController();
 
 router.get('/orders', ordersController.getAll);
-router.post('/orders', authMiddleware);
+router.post('/orders', authMiddleware, ordersController.create);
 
 export default router;

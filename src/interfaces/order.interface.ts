@@ -4,7 +4,11 @@ export interface Order {
 }
 
 export interface OrderWithProductsIds {
-  id: number;
+  id?: number;
   userId: number;
+  productsIds: number[];
+}
+
+export interface OrderOnlyProductsIds {
   productsIds: number[];
 }
